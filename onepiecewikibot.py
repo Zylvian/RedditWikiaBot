@@ -1,4 +1,5 @@
 import os
+import sys
 
 import praw
 from parse_helper import NameParser
@@ -34,8 +35,8 @@ class RedditBot:
                         comment.reply(response_string)
                         log.info("replying to {user}: {response}".format(
                             user=comment.author.name, response=response_string))
-                    except praw.exceptions.APIException:
-                        log.info("Hit rate limit, skipping message...")
+                    except praw.exceptions.APIException as e:
+                        log.info(str(e))
 
             else:
                 return
@@ -46,7 +47,7 @@ class RedditBot:
         # remove to kill
         with open(self.LOCK_FILE, 'w'): pass
         print("Lock file made (presumably)")
-
+        log.info("STARTED")
         self._comment_responder()
 
 
