@@ -12,7 +12,7 @@ class Constants():
 
         # alternative names
         self.__translations = {}
-        for alt_names, actual_name in constants['alternative_names'].items():
+        for actual_name, alt_names in constants['alternative_names'].items():
 
             if isinstance(alt_names, list):
                 for alt_name in alt_names:

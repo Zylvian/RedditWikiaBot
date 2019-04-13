@@ -1,10 +1,10 @@
 {
   "alternative_names":{
-    "superrr":"Franky",
-    "superr":"Franky",
-    "luffy's mom": "Crocodile",
-    "pervert": "Sanji",
-    "god": "Usopp",
-    "yohoho": "Brook"
+    "franky": ["superrr", "superr","super"],
+    "crocodile": "luffysmom",
+    "sanji": "pervert",
+    "usopp":"god",
+    "brook":"yohoho",
+    "luffy":"pirateking"
   }
 }
