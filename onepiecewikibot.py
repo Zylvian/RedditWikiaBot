@@ -11,6 +11,7 @@ class RedditBot:
 
     def __init__(self):
         self.LOCK_FILE = 'lockfile.lock'
+        self.fetcher = Fetcher()
 
 
         log.basicConfig(filename='bot_logging.log', level=log.INFO
@@ -27,10 +28,15 @@ class RedditBot:
                 text = comment.body
                 names = NameParser().parse_text(text)
                 if names:
-                    nl_tuple_list = Fetcher().get_wiki_links(names)
+                    pages = self.fetcher.get_wiki_pages(names)
+
                     response_string = ""
-                    for name, link in nl_tuple_list:
-                        response_string += ("##"+name + "\n\n " + link + " \n\n")
+
+                    for page in pages:
+                        curr_title = page["title"]
+                        curr_url = page["fullurl"]
+                        curr_image_url = self.fetcher.fetch_image_url()
+                        response_string += ("##"+curr_title + "\n\n" + curr_url + " \n\n" + curr_image_url)
 
                     try:
                         comment.reply(response_string)

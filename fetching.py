@@ -23,19 +23,20 @@ print(requests.get(url=url, params=PARAMS).content)
 class Fetcher:
 
     def __init__(self):
-        self._startlink = 'https://onepiece.fandom.com/api.php?format=json&action=query&'
+        self._imagestartlink = 'https://onepiece.fandom.com/api.php?action=imageserving&format=json&wisTitle='
+        self._querystartlink = 'https://onepiece.fandom.com/api.php?format=json&action=query&'
         self.constants = Constants()
 
     def cleanName(self, name):
         """ignore all special characters, numbers, whitespace, case"""
         return ''.join(c for c in name.lower() if c in string.ascii_lowercase)
 
-    def get_wiki_links(self, names):
-        nls = []
+    def get_wiki_pages(self, names):
+        pages = []
         for name in names:
-            nls.append(self.__fetch_link(name))
+            pages.append(self.__fetch_page(name))
 
-        return nls
+        return pages
 
     def __get_correct_page(self, checked_name, all_pages):
         # Gets first page
@@ -75,7 +76,7 @@ class Fetcher:
 
 
 
-    def __fetch_link(self, name):
+    def __fetch_page(self, name):
 
         # Returns translated name or the same name
         #clean_name = self.cleanName(name)
@@ -85,21 +86,16 @@ class Fetcher:
             checked_name = name
 
         # All pages with "name" in there, and their URLs.
-        fetch_json = requests.get(self._startlink + 'generator=allpages&gapfrom=' + checked_name.title() +
-                                  '&prop=info&inprop=url').json() #'Use "gapfilterredir=nonredirects" option instead of "redirects" when using allpages as a generator' #gaplimit=1
+        fetch_json = requests.get(self._querystartlink + '&prop=info&inprop=url&generator=allpages&gapfrom=' + checked_name.title()
+                                  ).json() #'Use "gapfilterredir=nonredirects" option instead of "redirects" when using allpages as a generator' #gaplimit=1
 
         # Gets the first page
         all_pages = fetch_json['query']['pages']
 
         first_page = self.__get_correct_page(checked_name, all_pages)
 
-        # Gets first url
-        first_title = first_page["title"]
-        first_url = first_page["fullurl"]
 
-        # THIS IS THE URL WE NEED AT LEAST
-
-        return (first_title, first_url)
+        return first_page
 
         # ASSUME THAT THE FIRST LINK IS CORRECT - MIGHT BE REDIRECTION LINK!
 
@@ -107,6 +103,14 @@ class Fetcher:
 
         def check_title(self):
             pass
+
+    def fetch_image_url(self, page):
+        pass
+        title = str(page["title"])
+        image_json = requests.get(self._imagestartlink+title).json()
+        print(image_json)
+        return image_json["image"]["imageserving"]
+
 
 class SpellChecker():
     """Find and fix simple spelling errors.
