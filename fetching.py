@@ -1,5 +1,5 @@
 import requests
-
+import logging as log
 """ 
 S = requests.Session()
 
@@ -43,10 +43,16 @@ class Fetcher:
         all_pages = fetch_json['query']['pages']
         # Gets first page
         first_page = None
-        for page in all_pages.values():
-            if page['title'].lower() == name:
+        log_string = ""
+        for nr, page in enumerate(all_pages.values()):
+            title = page['title']
+            log_string += title + ","
+            if title.lower() == name.lower():
+                log.info("Found direct match, page nr {}: {}".format(nr+1, name))
                 first_page = page
                 break
+
+        log.info("Input name: {} \n Parsed titles were: {}.\n Result title was: {}".format(name, log_string[:-1], first_page["title"]))
 
         if not first_page:
             first_page = next(iter(all_pages.values()))
