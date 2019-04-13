@@ -44,7 +44,7 @@ class Fetcher:
         # Gets first page
         first_page = None
         for page in all_pages.values():
-            if page['title'] == name:
+            if page['title'].lower() == name:
                 first_page = page
                 break
 
