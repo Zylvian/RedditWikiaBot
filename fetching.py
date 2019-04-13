@@ -36,7 +36,8 @@ class Fetcher:
 
         # All pages with "name" in there, and their URLs.
 
-        fetch_json = requests.get(self._startlink + 'generator=allpages&gapfrom=' + name + '&prop=info&inprop=url').json()   #'Use "gapfilterredir=nonredirects" option instead of "redirects" when using allpages as a generator'
+        fetch_json = requests.get(self._startlink + 'generator=allpages&gapfrom=' + name +
+                                  '&prop=info&inprop=url').json() #'Use "gapfilterredir=nonredirects" option instead of "redirects" when using allpages as a generator' #gaplimit=1
 
         # Gets the first page
         all_pages = fetch_json['query']['pages']

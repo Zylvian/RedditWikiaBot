@@ -29,7 +29,7 @@ class RedditBot:
                     nl_tuple_list = Fetcher().get_wiki_links(names)
                     response_string = ""
                     for name, link in nl_tuple_list:
-                        response_string += (name + ": " + link + " \n\n")
+                        response_string += ("**"+name + "**: " + link + " \n\n---\n\n")
 
                     try:
                         comment.reply(response_string)
