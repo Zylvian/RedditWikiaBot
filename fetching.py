@@ -23,7 +23,7 @@ class Fetcher:
 
     def __init__(self):
         self._startlink = 'https://onepiece.fandom.com/api.php?format=json&action=query&'
-        self.constants = Constants
+        self.constants = Constants()
 
     def get_wiki_links(self, names):
         nls = []
@@ -36,7 +36,7 @@ class Fetcher:
     def __fetch_link(self, name):
 
         # Returns translated name or the same name
-        checked_name = Constants().translateAlt(name.lower())
+        checked_name = self.constants.translateAlt(name.lower())
 
         # All pages with "name" in there, and their URLs.
         fetch_json = requests.get(self._startlink + 'generator=allpages&gapfrom=' + checked_name +
@@ -77,7 +77,8 @@ class Fetcher:
 
 
 
-
+        def check_title(self):
+            pass
 
 
 
