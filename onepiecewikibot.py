@@ -34,24 +34,32 @@ class RedditBot:
 
         subreddit = reddit.subreddit("onepiece")
 
-        for comment in subreddit.stream.comments(skip_existing=True):
-            if os.path.isfile(self.LOCK_FILE):
-                text = comment.body
-                names = NameParser().parse_text(text)
-                if names:
-                    pages = self.fetcher.get_wiki_pages(names)
+        try:
+            for comment in subreddit.stream.comments(skip_existing=True):
+                if os.path.isfile(self.LOCK_FILE):
+                    text = comment.body
+                    names = NameParser().parse_text(text)
+                    if names:
+                        pages = self.fetcher.get_wiki_pages(names)
 
-                    response_string = self.create_response_string(pages)
+                        response_string = self.create_response_string(pages)
 
-                    try:
-                        comment.reply(response_string)
-                        #log.info("replying to {user}: {response}".format(
-                        #    user=comment.author.name, response=response_string))
-                    except praw.exceptions.APIException as e:
-                        log.info(str(e))
+                        try:
+                            comment.reply(response_string)
+                            #log.info("replying to {user}: {response}".format(
+                            #    user=comment.author.name, response=response_string))
+                        except praw.exceptions.APIException as e:
+                            log.info(str(e))
 
+                else:
+                    return
+        except Exception as e:
+            log.info(str(e))
+            if text:
+                log.info('Comment: "' + text + '"')
             else:
-                return
+                log.info("Couldn't parse comment.")
+
         # for comment in subreddit.stream.comments():
         #    if not answeredDB.exists(comment.parent_id, cards):
 

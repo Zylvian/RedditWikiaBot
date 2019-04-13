@@ -107,8 +107,14 @@ class Fetcher:
 
     def fetch_image_url(self, page):
         title = str(page["title"])
+
         image_json = requests.get(self._imagestartlink+title).json()
-        return image_json["image"]["imageserving"]
+
+        try:
+            return image_json["image"]["imageserving"]
+        except KeyError:
+            log.info("Couldn't parse image url")
+            return ""
 
     def fetch_summary(self):
         print(self._startlink+'&text=Luffy&parse&summary=')
