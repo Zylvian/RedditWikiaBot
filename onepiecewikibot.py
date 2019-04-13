@@ -33,8 +33,8 @@ class RedditBot:
 
                     try:
                         comment.reply(response_string)
-                        log.info("replying to {user}: {response}".format(
-                            user=comment.author.name, response=response_string))
+                        #log.info("replying to {user}: {response}".format(
+                        #    user=comment.author.name, response=response_string))
                     except praw.exceptions.APIException as e:
                         log.info(str(e))
 
