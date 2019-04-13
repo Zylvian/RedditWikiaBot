@@ -23,8 +23,9 @@ print(requests.get(url=url, params=PARAMS).content)
 class Fetcher:
 
     def __init__(self):
-        self._imagestartlink = 'https://onepiece.fandom.com/api.php?action=imageserving&format=json&wisTitle='
-        self._querystartlink = 'https://onepiece.fandom.com/api.php?format=json&action=query&'
+        self._startlink = 'https://onepiece.fandom.com/api.php?format=json&action='
+        self._imagestartlink = self._startlink+'imageserving&wisTitle='
+        self._querystartlink = self._startlink+'query&'
         self.constants = Constants()
 
     def cleanName(self, name):
@@ -105,10 +106,12 @@ class Fetcher:
             pass
 
     def fetch_image_url(self, page):
-        pass
         title = str(page["title"])
         image_json = requests.get(self._imagestartlink+title).json()
         return image_json["image"]["imageserving"]
+
+    def fetch_summary(self):
+        print(self._startlink+'&text=Luffy&parse&summary=')
 
 
 class SpellChecker():

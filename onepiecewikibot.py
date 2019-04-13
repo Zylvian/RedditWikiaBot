@@ -16,6 +16,17 @@ class RedditBot:
 
         log.basicConfig(filename='bot_logging.log', level=log.INFO
                         )
+    def create_response_string(self, pages):
+
+        response_string = ""
+
+        for page in pages:
+            curr_title = page["title"]
+            curr_url = page["fullurl"]
+            curr_image_url = self.fetcher.fetch_image_url(page)
+            response_string += ("#[{title}]({image_url})\n\n{url}".format(title=curr_title, url=curr_url,
+                                                                                   image_url=curr_image_url))
+        return response_string
 
     def _comment_responder(self):
         reddit = praw.Reddit('bot1')
@@ -30,13 +41,7 @@ class RedditBot:
                 if names:
                     pages = self.fetcher.get_wiki_pages(names)
 
-                    response_string = ""
-
-                    for page in pages:
-                        curr_title = page["title"]
-                        curr_url = page["fullurl"]
-                        curr_image_url = self.fetcher.fetch_image_url(page)
-                        response_string += ("##"+curr_title + "\n\n" + curr_url + " \n\nImage:\n\n" + curr_image_url)
+                    response_string = self.create_response_string(pages)
 
                     try:
                         comment.reply(response_string)
