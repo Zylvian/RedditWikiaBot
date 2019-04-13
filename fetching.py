@@ -42,7 +42,14 @@ class Fetcher:
         # Gets the first page
         all_pages = fetch_json['query']['pages']
         # Gets first page
-        first_page = next(iter(all_pages.values()))
+        first_page = None
+        for page in all_pages.values():
+            if page['title'] == name:
+                first_page = page
+                break
+
+        if not first_page:
+            first_page = next(iter(all_pages.values()))
         # Gets first url
         first_title = first_page["title"]
         first_url = first_page["fullurl"]
