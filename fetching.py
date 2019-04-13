@@ -108,7 +108,6 @@ class Fetcher:
         pass
         title = str(page["title"])
         image_json = requests.get(self._imagestartlink+title).json()
-        print(image_json)
         return image_json["image"]["imageserving"]
 
 

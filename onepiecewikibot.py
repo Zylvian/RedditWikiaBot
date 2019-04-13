@@ -36,7 +36,7 @@ class RedditBot:
                         curr_title = page["title"]
                         curr_url = page["fullurl"]
                         curr_image_url = self.fetcher.fetch_image_url(page)
-                        response_string += ("##"+curr_title + "\n\n" + curr_url + " \n\n" + curr_image_url)
+                        response_string += ("##"+curr_title + "\n\n" + curr_url + " \n\nImage:\n\n" + curr_image_url)
 
                     try:
                         comment.reply(response_string)
