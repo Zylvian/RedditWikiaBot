@@ -1,5 +1,8 @@
+import itertools
+
 import requests
 import logging as log
+from constants import Constants
 """ 
 S = requests.Session()
 
@@ -20,6 +23,7 @@ class Fetcher:
 
     def __init__(self):
         self._startlink = 'https://onepiece.fandom.com/api.php?format=json&action=query&'
+        self.constants = Constants
 
     def get_wiki_links(self, names):
         nls = []
@@ -31,12 +35,11 @@ class Fetcher:
 
     def __fetch_link(self, name):
 
-        # All pages with Luffy in there.
-        #print(requests.get(startlink+'list=allpages&apfrom=Luffy').content)
+        # Returns translated name or the same name
+        checked_name = Constants().translateAlt(name.lower())
 
         # All pages with "name" in there, and their URLs.
-
-        fetch_json = requests.get(self._startlink + 'generator=allpages&gapfrom=' + name +
+        fetch_json = requests.get(self._startlink + 'generator=allpages&gapfrom=' + checked_name +
                                   '&prop=info&inprop=url').json() #'Use "gapfilterredir=nonredirects" option instead of "redirects" when using allpages as a generator' #gaplimit=1
 
         # Gets the first page
@@ -44,18 +47,23 @@ class Fetcher:
         # Gets first page
         first_page = None
         log_string = ""
+
+
+        # Checks for any direct hits.
         for nr, page in enumerate(all_pages.values()):
             title = page['title']
+            title_low = title.lower()
             log_string += title + ","
-            if title.lower() == name.lower():
-                log.info("Found direct match, page nr {}: {}".format(nr+1, name))
+            if title_low == checked_name.lower():
+                log.info("Found direct match, page nr {}: {}".format(nr + 1, checked_name))
                 first_page = page
                 break
 
+        # Gets first entry
         if not first_page:
             first_page = next(iter(all_pages.values()))
 
-        log.info("Input name: {} \n Parsed titles were: {}.\n Result title was: {}".format(name, log_string[:-1],
+        log.info("Input name: {} \n Parsed titles were: {}.\n Result title was: {}".format(checked_name, log_string[:-1],
                                                                                            first_page["title"]))
         # Gets first url
         first_title = first_page["title"]
