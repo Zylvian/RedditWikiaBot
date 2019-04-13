@@ -45,6 +45,7 @@ class Fetcher:
         clean_name = self.cleanName(checked_name)
 
         # Checks for any direct hits.
+        # difflib.get_close_matches[0]
         for nr, page in enumerate(all_pages.values()):
             title = page['title']
             title_clean = self.cleanName(title)
@@ -72,10 +73,13 @@ class Fetcher:
         checked_name = self.constants.translateAlt(self.cleanName(name))
 
         if checked_name == self.cleanName(name):
-            checked_name = name.lower()
+            checked_name = name
 
         # All pages with "name" in there, and their URLs.
-        fetch_json = requests.get(self._startlink + 'generator=allpages&gapfrom=' + checked_name +
+        print(checked_name)
+        checked_name = 'rob lucci'
+        print(checked_name.title())
+        fetch_json = requests.get(self._startlink + 'generator=allpages&gapfrom=' + checked_name.title() +
                                   '&prop=info&inprop=url').json() #'Use "gapfilterredir=nonredirects" option instead of "redirects" when using allpages as a generator' #gaplimit=1
 
         # Gets the first page
