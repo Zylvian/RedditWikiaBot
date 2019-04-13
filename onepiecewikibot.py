@@ -12,7 +12,7 @@ class RedditBot:
         self.LOCK_FILE = 'lockfile.lock'
 
         log.basicConfig(filename='bot_logging.log',
-                        level=log.DEBUG)
+                        )
 
     def _comment_responder(self):
         reddit = praw.Reddit('bot1')
