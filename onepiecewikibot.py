@@ -34,8 +34,8 @@ class RedditBot:
 
         subreddit = reddit.subreddit("onepiece")
 
-        try:
-            for comment in subreddit.stream.comments(skip_existing=True):
+        for comment in subreddit.stream.comments(skip_existing=True):
+            try:
                 if os.path.isfile(self.LOCK_FILE):
                     text = comment.body
                     names = NameParser().parse_text(text)
@@ -53,12 +53,12 @@ class RedditBot:
 
                 else:
                     return
-        except Exception as e:
-            log.info(str(e))
-            if text:
-                log.info('Comment: "' + text + '"')
-            else:
-                log.info("Couldn't parse comment.")
+            except Exception as e:
+                log.info(str(e))
+                if text:
+                    log.info('Comment: "' + text + '"')
+                else:
+                    log.info("Couldn't parse comment.")
 
         # for comment in subreddit.stream.comments():
         #    if not answeredDB.exists(comment.parent_id, cards):
