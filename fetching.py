@@ -55,6 +55,15 @@ class Fetcher:
                 first_page = page
                 break
 
+
+        # Get first containing
+        # if not first_page:
+        #     pages = all_pages.values()
+        #     pages_containing = [page for page in pages if checked_name in page['title'].lower()]
+        #     if pages_containing:
+        #         first_page = pages_containing[0]
+        #         print("bingo")
+
         # Gets first entry
         if not first_page:
             first_page = next(iter(all_pages.values()))
@@ -76,9 +85,6 @@ class Fetcher:
             checked_name = name
 
         # All pages with "name" in there, and their URLs.
-        print(checked_name)
-        checked_name = 'rob lucci'
-        print(checked_name.title())
         fetch_json = requests.get(self._startlink + 'generator=allpages&gapfrom=' + checked_name.title() +
                                   '&prop=info&inprop=url').json() #'Use "gapfilterredir=nonredirects" option instead of "redirects" when using allpages as a generator' #gaplimit=1
 
