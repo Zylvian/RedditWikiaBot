@@ -11,7 +11,7 @@ class RedditBot:
     def __init__(self):
         self.LOCK_FILE = 'lockfile.lock'
 
-        log.basicConfig(filename='bot_logging.log',
+        log.basicConfig(filename='bot_logging.log', level=log.INFO
                         )
 
     def _comment_responder(self):
@@ -30,8 +30,13 @@ class RedditBot:
                     for name, link in nl_tuple_list:
                         response_string += (name + ": " + link + " \n\n")
 
-                    comment.reply(response_string)
-                    log.info(response_string)
+                    try:
+                        comment.reply(response_string)
+                        log.info("replying to {user}: {response}".format(
+                            user=comment.author.name, response=response_string))
+                    except praw.exceptions.APIException:
+                        log.info("Hit rate limit, skipping message...")
+
             else:
                 return
         # for comment in subreddit.stream.comments():
