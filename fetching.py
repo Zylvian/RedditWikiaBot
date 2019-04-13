@@ -52,10 +52,11 @@ class Fetcher:
                 first_page = page
                 break
 
-        log.info("Input name: {} \n Parsed titles were: {}.\n Result title was: {}".format(name, log_string[:-1], first_page["title"]))
-
         if not first_page:
             first_page = next(iter(all_pages.values()))
+
+        log.info("Input name: {} \n Parsed titles were: {}.\n Result title was: {}".format(name, log_string[:-1],
+                                                                                           first_page["title"]))
         # Gets first url
         first_title = first_page["title"]
         first_url = first_page["fullurl"]
