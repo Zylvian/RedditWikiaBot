@@ -42,7 +42,7 @@ class RedditBot:
                     if names:
                         pages = self.fetcher.get_wiki_pages(names)
 
-                        response_string = self.create_response_string(pages)
+                        response_string = self.create_response_string(pages) + "\n"
 
                         try:
                             comment.reply(response_string)
