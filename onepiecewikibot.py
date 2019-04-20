@@ -32,7 +32,7 @@ class RedditBot:
         reddit = praw.Reddit('bot1')
         # answeredDB = commentDB.DB()
 
-        subreddit = reddit.subreddit("onepiece")
+        subreddit = reddit.subreddit("onepiece+memepiece")
 
         for comment in subreddit.stream.comments(skip_existing=True):
             try:
