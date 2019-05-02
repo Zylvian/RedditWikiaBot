@@ -22,6 +22,7 @@ class RedditBot:
 
         for page in pages:
             curr_title = page["title"]
+
             curr_url = page["url"]
             curr_id = page["id"]
             curr_image_url = self.fetcher.fetch_image_url(curr_id)
@@ -29,6 +30,9 @@ class RedditBot:
             response_string += ("#[{title}]({image_url})\n\n###*{summary}*\n\n{url}".format(title=curr_title, url=curr_url,
                                                                                          image_url=curr_image_url,
                                                                                          summary=curr_summary))
+
+            log.info("Commenting about " + curr_title)
+
         return response_string
 
     def _comment_responder(self):
@@ -45,7 +49,6 @@ class RedditBot:
                     names = NameParser().parse_text(text)
                     if names:
                         pages = self.fetcher.get_wiki_pages(names)
-
                         response_string = self.create_response_string(pages) + "\n"
 
                         try:
