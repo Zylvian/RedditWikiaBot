@@ -94,16 +94,13 @@ class Fetcher:
 
         # Returns translated name or the same name
         #clean_name = self.cleanName(name)
-        checked_name = self.constants.translateAlt(self.cleanName(name))
-
-        if checked_name == self.cleanName(name):
-            checked_name = name
+        checked_name = self.constants.translateAlt(name.lower())
 
         # All pages with "name" in there, and their URLs.
         fetch_json = requests.get(self._querystartlink + checked_name.title()
                                   ).json() #'Use "gapfilterredir=nonredirects" option instead of "redirects" when using allpages as a generator' #gaplimit=1
 
-        print(fetch_json)
+
         # Gets the first page
         #all_pages = fetch_json['query']['pages']
 
@@ -123,11 +120,10 @@ class Fetcher:
     def fetch_image_url(self, page_id):
 
         image_json = requests.get(self._imagestartlink+str(page_id)).json()
-        print(image_json)
 
         try:
             image_url_dirty = image_json["image"]["imageserving"]
-            image_url = (image_url_dirty.split(".png"))[0]+".png"
+            image_url = (image_url_dirty.split("/revision/"))[0]
 
             return image_url
         except KeyError:
