@@ -28,9 +28,14 @@ class RedditBot:
             curr_id = page["id"]
             curr_image_url = self.fetcher.fetch_image_url(curr_id)
             curr_summary = self.fetcher.fetch_summary(curr_id)
-            response_string += ("#[{title}]({image_url})\n\n###*{summary}*\n\n{url}\n\n".format(title=curr_title, url=curr_url,
-                                                                                         image_url=curr_image_url,
-                                                                                         summary=curr_summary))
+            response_string += ("#[{title}]({image_url})\n\n"
+                                "###*{summary}*\n\n"
+                                "{url}\n\n"
+                                "---\n\n"
+                                "^(*For any feedback on this bot, send a DM to u/Zylvian.*)".
+                                format(title=curr_title, url=curr_url,
+                                image_url=curr_image_url,
+                                summary=curr_summary))
 
         log.info("Commenting about:" + (",".join(all_titles)))
 
