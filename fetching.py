@@ -42,7 +42,10 @@ class Fetcher:
         pages = []
 
         for name in names:
-            pages.append(self.__fetch_page(name))
+            try:
+                pages.append(self.__fetch_page(name))
+            except KeyError:
+                pass
 
         log.info("Input names: " + ",".join(names))
 

@@ -55,8 +55,10 @@ class RedditBot:
                     # Finds all text within brackets.
                     names = NameParser().parse_text(text)
                     if names:
+
                         pages = self.fetcher.get_wiki_pages(names)
                         response_string = self.create_response_string(pages) + "\n"
+
 
                         try:
                             comment.reply(response_string)
@@ -64,6 +66,7 @@ class RedditBot:
                             #    user=comment.author.name, response=response_string))
                         except praw.exceptions.APIException as e:
                             log.info(str(e))
+
 
                 else:
                     return
