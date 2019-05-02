@@ -40,12 +40,11 @@ class Fetcher:
 
     def get_wiki_pages(self, names):
         pages = []
-        log_string = "Found inputs "
+
         for name in names:
-            log_string+= " {},".format(name)
             pages.append(self.__fetch_page(name))
 
-        log.info(log_string[:-1])
+        log.info("Input names: " + ",".join(names))
 
         return pages
 

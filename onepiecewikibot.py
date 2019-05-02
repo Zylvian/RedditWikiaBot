@@ -20,9 +20,10 @@ class RedditBot:
 
         response_string = ""
 
+        all_titles = list()
         for page in pages:
             curr_title = page["title"]
-
+            all_titles.append(curr_title)
             curr_url = page["url"]
             curr_id = page["id"]
             curr_image_url = self.fetcher.fetch_image_url(curr_id)
@@ -31,7 +32,7 @@ class RedditBot:
                                                                                          image_url=curr_image_url,
                                                                                          summary=curr_summary))
 
-            log.info("Commenting about " + curr_title)
+        log.info("Commenting about:" + (",".join(all_titles)))
 
         return response_string
 
