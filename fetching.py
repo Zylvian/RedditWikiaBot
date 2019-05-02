@@ -40,7 +40,9 @@ class Fetcher:
 
     def get_wiki_pages(self, names):
         pages = []
+        log_string = "Found names "
         for name in names:
+            log_string+= " {},".format(name)
             pages.append(self.__fetch_page(name))
 
         return pages
@@ -120,7 +122,10 @@ class Fetcher:
         print(image_json)
 
         try:
-            return image_json["image"]["imageserving"]
+            image_url_dirty = image_json["image"]["imageserving"]
+            image_url = (image_url_dirty.split(".png"))[0]+".png"
+
+            return image_url
         except KeyError:
             log.info("Couldn't parse image url")
             return ""
