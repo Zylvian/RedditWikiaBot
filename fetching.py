@@ -23,10 +23,16 @@ print(requests.get(url=url, params=PARAMS).content)
 class Fetcher:
 
     def __init__(self):
-        self._startlink = 'https://onepiece.fandom.com/api.php?format=json&action='
-        self._imagestartlink = self._startlink+'imageserving&wisTitle='
-        self._querystartlink = self._startlink+'query&'
+        self._querystartlink = 'https://onepiece.fandom.com/api/v1/Search/List?query='
+        self._queryendlink = '&limit=1&minArticleQuality=10&batch=1&namespaces=0%2C14'
+
+        self._imagestartlink = 'https://onepiece.fandom.com/api.php?format=json&action=imageserving&wisId='
+        self._summarystartlink = "https://onepiece.fandom.com/api/v1/Articles/AsSimpleJson?id="
         self.constants = Constants()
+
+        #self._endlink = self._startlink+'query&'
+
+        # '&prop=info&inprop=url&generator=allpages&gapfrom='
 
     def cleanName(self, name):
         """ignore all special characters, numbers, whitespace, case"""
@@ -44,7 +50,8 @@ class Fetcher:
         first_page = None
         log_string = ""
 
-        clean_name = self.cleanName(checked_name)
+        #clean_name = self.cleanName(checked_name)
+        clean_name = checked_name.replace(" ", "+")
 
         # Checks for any direct hits.
         # difflib.get_close_matches[0]
@@ -87,14 +94,16 @@ class Fetcher:
             checked_name = name
 
         # All pages with "name" in there, and their URLs.
-        fetch_json = requests.get(self._querystartlink + '&prop=info&inprop=url&generator=allpages&gapfrom=' + checked_name.title()
+        fetch_json = requests.get(self._querystartlink + checked_name.title()
                                   ).json() #'Use "gapfilterredir=nonredirects" option instead of "redirects" when using allpages as a generator' #gaplimit=1
 
+        print(fetch_json)
         # Gets the first page
-        all_pages = fetch_json['query']['pages']
+        #all_pages = fetch_json['query']['pages']
 
-        first_page = self.__get_correct_page(checked_name, all_pages)
+        #first_page = self.__get_correct_page(checked_name, all_pages)
 
+        first_page = fetch_json["items"][0]
 
         return first_page
 
@@ -105,10 +114,10 @@ class Fetcher:
         def check_title(self):
             pass
 
-    def fetch_image_url(self, page):
-        title = str(page["title"])
+    def fetch_image_url(self, page_id):
 
-        image_json = requests.get(self._imagestartlink+title).json()
+        image_json = requests.get(self._imagestartlink+str(page_id)).json()
+        print(image_json)
 
         try:
             return image_json["image"]["imageserving"]
@@ -116,8 +125,12 @@ class Fetcher:
             log.info("Couldn't parse image url")
             return ""
 
-    def fetch_summary(self):
-        print(self._startlink+'&text=Luffy&parse&summary=')
+    def fetch_summary(self, page_id):
+
+        fetch_json = requests.get(self._summarystartlink+str(page_id)).json()
+
+        return fetch_json["sections"][0]["content"][0]["text"]
+
 
 
 class SpellChecker():

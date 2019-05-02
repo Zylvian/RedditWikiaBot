@@ -13,19 +13,22 @@ class RedditBot:
         self.LOCK_FILE = 'lockfile.lock'
         self.fetcher = Fetcher()
 
-
         log.basicConfig(filename='bot_logging.log', level=log.INFO
                         )
+
     def create_response_string(self, pages):
 
         response_string = ""
 
         for page in pages:
             curr_title = page["title"]
-            curr_url = page["fullurl"]
-            curr_image_url = self.fetcher.fetch_image_url(page)
-            response_string += ("#[{title}]({image_url})\n\n{url}".format(title=curr_title, url=curr_url,
-                                                                                   image_url=curr_image_url))
+            curr_url = page["url"]
+            curr_id = page["id"]
+            curr_image_url = self.fetcher.fetch_image_url(curr_id)
+            curr_summary = self.fetcher.fetch_summary(curr_id)
+            response_string += ("#[{title}]({image_url})\n\n*{summary}*\n\n{url}".format(title=curr_title, url=curr_url,
+                                                                                         image_url=curr_image_url,
+                                                                                         summary=curr_summary))
         return response_string
 
     def _comment_responder(self):
@@ -38,6 +41,7 @@ class RedditBot:
             try:
                 if os.path.isfile(self.LOCK_FILE):
                     text = comment.body
+                    # Finds all text within brackets.
                     names = NameParser().parse_text(text)
                     if names:
                         pages = self.fetcher.get_wiki_pages(names)
@@ -46,7 +50,7 @@ class RedditBot:
 
                         try:
                             comment.reply(response_string)
-                            #log.info("replying to {user}: {response}".format(
+                            # log.info("replying to {user}: {response}".format(
                             #    user=comment.author.name, response=response_string))
                         except praw.exceptions.APIException as e:
                             log.info(str(e))
