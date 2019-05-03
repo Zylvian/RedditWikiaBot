@@ -38,7 +38,7 @@ class RedditBot:
 
         log.info("Commenting about:" + (",".join(all_titles)))
 
-        response_string += "^(*For any feedback on this bot, send a DM to u/Zylvian.*)"
+        response_string += "^(*For any feedback on this bot,*) [^(*send a DM to u/Zylvian.*)](https://www.reddit.com/message/compose?to=%2Fu%2FZylvian)"
 
         return response_string
 
