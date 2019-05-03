@@ -31,14 +31,17 @@ class RedditBot:
             response_string += ("#[{title}]({image_url})\n\n"
                                 "###*{summary}*\n\n"
                                 "{url}\n\n"
-                                "---\n\n".
+                                .
                                 format(title=curr_title, url=curr_url,
                                 image_url=curr_image_url,
                                 summary=curr_summary))
 
         log.info("Commenting about:" + (",".join(all_titles)))
 
-        response_string += "^(*For any feedback on this bot,*) [^(*send a DM to u/Zylvian.*)](https://www.reddit.com/message/compose?to=Zylvian&subject=OnePiece Wiki Bot feedback&message=ay suck my dick)"
+        if response_string == "":
+            response_string = "##*Didn't find any results.*\n\n"
+
+        response_string += "---\n\n^(*For any feedback on this bot,*) [^(*send a DM to u/Zylvian.*)](https://www.reddit.com/message/compose?to=Zylvian&subject=OnePiece Wiki Bot feedback&message=ay suck my dick)"
 
         return response_string
 
