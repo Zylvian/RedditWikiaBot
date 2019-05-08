@@ -6,5 +6,10 @@
     "Usopp":"god",
     "Brook":"yohoho",
     "Buggy": ["future king of pirates", "future pirate king", "pirate king of the future"]
+  },
+
+  "sub_to_wiki":{
+    "rickandmorty":"rickandmorty",
+    "onepiece":["onepiece","memepiece"]
   }
 }

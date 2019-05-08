@@ -3,6 +3,9 @@ lockfile.lock
 bot_logging.log
 *.xml
 *.iml
+testing.py
+test_script.py
+
 
 venv/
 

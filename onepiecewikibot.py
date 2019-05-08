@@ -2,6 +2,8 @@ import os
 import sys
 
 import praw
+
+from constants import Constants
 from parse_helper import NameParser
 from fetching import Fetcher
 import logging as log
@@ -11,30 +13,39 @@ class RedditBot:
 
     def __init__(self):
         self.LOCK_FILE = 'lockfile.lock'
+
+        self._subs_to_check = "onepiece+memepiece+rickandmorty"
+
         self.fetcher = Fetcher()
+
+        """self.constants = Constants()
+
+        self.fetcher_dict = self.constants.fetchers"""
+
+        # self._subs_to_check = "+".join(self.fetcher_dict.keys())
 
         log.basicConfig(filename='bot_logging.log', level=log.INFO
                         )
 
-    def create_response_string(self, pages):
+    def create_response_string(self, info_dict):
 
         response_string = ""
 
         all_titles = list()
-        for page in pages:
+        for page in info_dict:
             curr_title = page["title"]
-            all_titles.append(curr_title)
             curr_url = page["url"]
-            curr_id = page["id"]
-            curr_image_url = self.fetcher.fetch_image_url(curr_id)
-            curr_summary = self.fetcher.fetch_summary(curr_id)
+            curr_image_url = page["image_url"]
+            curr_summary = page["summary"]
+
+            all_titles.append(curr_title)
+
             response_string += ("#[{title}]({image_url})\n\n"
                                 "###*{summary}*\n\n"
-                                "{url}\n\n"
-                                .
+                                "{url}\n\n".
                                 format(title=curr_title, url=curr_url,
-                                image_url=curr_image_url,
-                                summary=curr_summary))
+                                       image_url=curr_image_url,
+                                       summary=curr_summary))
 
         log.info("Commenting about:" + (",".join(all_titles)))
 
@@ -49,19 +60,22 @@ class RedditBot:
         reddit = praw.Reddit('bot1')
         # answeredDB = commentDB.DB()
 
-        subreddit = reddit.subreddit("onepiece+memepiece")
+        subreddit = reddit.subreddit(self._subs_to_check)
+        parser = NameParser()
 
         for comment in subreddit.stream.comments(skip_existing=True):
             try:
                 if os.path.isfile(self.LOCK_FILE):
                     text = comment.body
+
                     # Finds all text within brackets.
-                    names = NameParser().parse_text(text)
+                    names = parser.parse_text(text)
+
                     if names:
 
-                        pages = self.fetcher.get_wiki_pages(names)
-                        response_string = self.create_response_string(pages) + "\n"
-
+                        # curr_fetcher = self.fetcher_dict[comment.subreddit.display_name]
+                        info_dict = self.fetcher.get_wiki_info(names)
+                        response_string = self.create_response_string(info_dict) + "\n"
 
                         try:
                             comment.reply(response_string)
