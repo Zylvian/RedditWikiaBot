@@ -164,6 +164,9 @@ class Fetcher:
 
         return return_list
 
+    def get_subs_to_check(self):
+        return self.constants.get_subs_to_check()
+
 
 class SpellChecker():
     """Find and fix simple spelling errors.

@@ -38,3 +38,7 @@ class Constants():
     def sub_to_wiki(self, sub: str):
         """gets the appropriate wiki link for a sub"""
         return self.__wikis.get(sub, sub)
+
+    def get_subs_to_check(self):
+
+        return '+'.join(list(self.__wikis.values()))

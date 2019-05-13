@@ -18,6 +18,8 @@ class RedditBot:
 
         self.fetcher = Fetcher()
 
+        self._subs_to_check = self.fetcher.get_subs_to_check()
+
         """self.constants = Constants()
 
         self.fetcher_dict = self.constants.fetchers"""
@@ -52,7 +54,7 @@ class RedditBot:
         if response_string == "":
             response_string = "##*Didn't find any results.*\n\n"
 
-        response_string += "---\n\n^(*For any feedback on this bot,*) [^(*send a DM to u/Zylvian.*)](https://www.reddit.com/message/compose?to=Zylvian&subject=OnePiece Wiki Bot feedback&message=ay suck my dick)"
+        response_string += "---\n\n^(*For any feedback on this bot,*) [^(*send a DM to u/Zylvian.*)](https://www.reddit.com/message/compose?to=Zylvian&subject=Wikia Bot feedback&message=ay suck my dick)"
 
         return response_string
 
@@ -61,6 +63,7 @@ class RedditBot:
         # answeredDB = commentDB.DB()
 
         subreddit = reddit.subreddit(self._subs_to_check)
+        print(self._subs_to_check)
         parser = NameParser()
 
         for comment in subreddit.stream.comments(skip_existing=True):
@@ -74,7 +77,8 @@ class RedditBot:
                     if names:
 
                         # curr_fetcher = self.fetcher_dict[comment.subreddit.display_name]
-                        info_dict = self.fetcher.get_wiki_info(names)
+                        curr_sub = comment.subreddit.display_name
+                        info_dict = self.fetcher.get_wiki_info(curr_sub, names)
                         response_string = self.create_response_string(info_dict) + "\n"
 
                         try:

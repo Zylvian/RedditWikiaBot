@@ -12,7 +12,8 @@ class NameParser:
         names = []
 
         # regex for escaped (new reddit and some apps) and unescaped brackets
-        for name in re.finditer(r'\\?\[\\?\[([^\]\\]{1,30})\\?\]\\?\]', text):
+        #for name in re.finditer(r'\\?\[\\?\[([^\]\\]{1,30})\\?\]\\?\]', text):
+        for name in re.finditer(r'\\?\:\\?\:([^\]\\]{1,30})\\?\:\\?\:', text):
             name = name.group(1)
             if name not in names:
                 names.append(name)
