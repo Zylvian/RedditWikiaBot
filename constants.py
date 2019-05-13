@@ -31,9 +31,9 @@ class Constants():
             else:
                 self.__wikis[subreddit_names] = wiki_name
 
-    def translateAlt(self, card):
-        """translate alternative card name or return card"""
-        return self.__translations.get(card, card)
+    def translateAlt(self, name):
+        """translate alternative name or return name"""
+        return self.__translations.get(name, name)
 
     def sub_to_wiki(self, sub: str):
         """gets the appropriate wiki link for a sub"""
