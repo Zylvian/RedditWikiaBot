@@ -1,5 +1,5 @@
 # Reddit Wikia bot
-*This code is almost entirely based off of the [hearthscan bot](https://github.com/d-schmidt/hearthscan-bot).
+*Note: this code is almost entirely based off of the great [hearthscan bot](https://github.com/d-schmidt/hearthscan-bot)*.
 
 ### APIs in use:
 For finding correct page and fetching summary: https://onepiece.fandom.com/api/v1
