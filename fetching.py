@@ -77,14 +77,6 @@ class Fetcher:
                 first_page = page
                 break
 
-        # Get first containing
-        # if not first_page:
-        #     pages = all_pages.values()
-        #     pages_containing = [page for page in pages if checked_name in page['title'].lower()]
-        #     if pages_containing:
-        #         first_page = pages_containing[0]
-        #         print("bingo")
-
         # Gets first entry
         if not first_page:
             first_page = next(iter(all_pages.values()))
@@ -105,16 +97,9 @@ class Fetcher:
         fetch_json = requests.get(self._querystartlink + checked_name.title()
                                   ).json()  # 'Use "gapfilterredir=nonredirects" option instead of "redirects" when using allpages as a generator' #gaplimit=1
 
-        # Gets the first page
-        # all_pages = fetch_json['query']['pages']
-
-        # first_page = self.__get_correct_page(checked_name, all_pages)
-
         first_page = fetch_json["items"][0]
 
         return first_page
-
-        # ASSUME THAT THE FIRST LINK IS CORRECT - MIGHT BE REDIRECTION LINK!
 
     def __fetch_image_url(self, page_id):
 

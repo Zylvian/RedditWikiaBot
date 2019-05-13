@@ -41,4 +41,4 @@ class Constants():
 
     def get_subs_to_check(self):
 
-        return '+'.join(list(self.__wikis.values()))
+        return '+'.join(list(self.__wikis.keys()))
