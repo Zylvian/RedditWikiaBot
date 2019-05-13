@@ -1,5 +1,16 @@
 # Reddit Wikia bot
+
 *Note: this code is almost entirely based off of the great [hearthscan bot](https://github.com/d-schmidt/hearthscan-bot)*.
+
+---
+
+## How it works:
+Write `::something::` in a comment in a subreddit where this bot is active, and it will return a summary, an image and a link to the fetched wiki page for the dedicated sub.
+
+--- 
+
+### Requesting new subreddit
+If you want to request the bot for another subreddit, make an issue with the appropriate **subreddit link** and **fandom.wiki link**.
 
 ### APIs in use:
 For finding correct page and fetching summary: https://onepiece.fandom.com/api/v1
