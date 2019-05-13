@@ -1,6 +1,6 @@
 # Reddit Wikia bot
 
-*Note: this code is almost entirely based off of the great [hearthscan bot](https://github.com/d-schmidt/hearthscan-bot)*.
+*Thanks a lot to [hearthscan bot](https://github.com/d-schmidt/hearthscan-bot) for providing an amazing springboard for this bot*.
 
 ---
 
