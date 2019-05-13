@@ -47,7 +47,7 @@ class Fetcher:
 
         for name in names:
             try:
-                checkedname = self.constants.translateAlt(name)
+                checkedname = self.constants.translateAlt(self.cleanName(name))
 
                 pages.append(self.__fetch_page(checkedname))
             except KeyError:
