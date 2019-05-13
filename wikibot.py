@@ -43,7 +43,7 @@ class RedditBot:
             all_titles.append(curr_title)
 
             response_string += ("#[{title}]({image_url})\n\n"
-                                "###*{summary}*\n\n"
+                                "#####*{summary}*\n\n"
                                 "{url}\n\n".
                                 format(title=curr_title, url=curr_url,
                                        image_url=curr_image_url,
