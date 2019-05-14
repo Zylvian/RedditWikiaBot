@@ -47,7 +47,7 @@ class Fetcher:
 
         for name in names:
             try:
-                checkedname = self.constants.translateAlt(self.cleanName(name))
+                checkedname = self.constants.translateAlt(name)
 
                 pages.append(self.__fetch_page(checkedname))
             except KeyError:
@@ -59,9 +59,7 @@ class Fetcher:
 
         return return_dict
 
-    def cleanName(self, name):
-        """ignore all special characters, numbers, whitespace, case"""
-        return ''.join(c for c in name.lower() if c in string.ascii_lowercase)
+
 
     def __get_correct_page(self, checked_name, all_pages):
         # Gets first page
