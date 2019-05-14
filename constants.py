@@ -34,7 +34,7 @@ class Constants():
 
     def translateAlt(self, name):
         """translate alternative name or return name"""
-        return self.__translations.get(self.cleanName(name), name)
+        return self.__translations.get(self._cleanName(name), name)
 
     def sub_to_wiki(self, sub: str):
         """gets the appropriate wiki link for a sub"""
