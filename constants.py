@@ -33,7 +33,7 @@ class Constants():
 
     def translateAlt(self, name):
         """translate alternative name or return name"""
-        return self.__translations.get(name, name)
+        return self.__translations.get(self.cleanName(name), name)
 
     def sub_to_wiki(self, sub: str):
         """gets the appropriate wiki link for a sub"""
@@ -42,3 +42,7 @@ class Constants():
     def get_subs_to_check(self):
 
         return '+'.join(list(self.__wikis.keys()))
+
+    def _cleanName(self, name):
+        """ignore all special characters, numbers, whitespace, case"""
+        return ''.join(c for c in name.lower() if c in string.ascii_lowercase)
