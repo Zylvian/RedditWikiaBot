@@ -41,10 +41,6 @@ class Fetcher:
         self.__change_wiki(sub)
 
         pages = []
-
-
-
-
         for name in names:
             try:
                 checkedname = self.constants.translateAlt(name)
