@@ -1,7 +1,9 @@
 import os
 import sys
+import time
 
 import praw
+from prawcore import PrawcoreException
 
 from constants import Constants
 from parse_helper import NameParser
@@ -67,36 +69,31 @@ class RedditBot:
         parser = NameParser()
 
         for comment in subreddit.stream.comments(skip_existing=True):
-            try:
-                if os.path.isfile(self.LOCK_FILE):
-                    text = comment.body
 
-                    # Finds all text within brackets.
-                    names = parser.parse_text(text)
+            if os.path.isfile(self.LOCK_FILE):
 
-                    if names:
+                # Parse the comment
+                text = comment.body
+                # Finds all text within brackets.
+                names = parser.parse_text(text)
 
-                        # curr_fetcher = self.fetcher_dict[comment.subreddit.display_name]
-                        curr_sub = comment.subreddit.display_name
-                        info_dict = self.fetcher.get_wiki_info(curr_sub, names)
-                        response_string = self.create_response_string(info_dict) + "\n"
-
-                        try:
-                            comment.reply(response_string)
-                            # log.info("replying to {user}: {response}".format(
-                            #    user=comment.author.name, response=response_string))
-                        except praw.exceptions.APIException as e:
-                            log.info(str(e))
+                if names:
 
 
-                else:
-                    return
-            except Exception as e:
-                log.info(str(e))
-                if text:
-                    log.info('Comment: "' + text + '"')
-                else:
-                    log.info("Couldn't parse comment.")
+                    curr_sub = comment.subreddit.display_name
+                    info_dict = self.fetcher.get_wiki_info(curr_sub, names)
+                    response_string = self.create_response_string(info_dict) + "\n"
+
+                    try:
+                        comment.reply(response_string)
+                        # log.info("replying to {user}: {response}".format(
+                        #    user=comment.author.name, response=response_string))
+                    except praw.exceptions.APIException as e:
+                        log.info(str(e))
+
+
+            else:
+                return
 
         # for comment in subreddit.stream.comments():
         #    if not answeredDB.exists(comment.parent_id, cards):
@@ -106,7 +103,15 @@ class RedditBot:
         with open(self.LOCK_FILE, 'w'): pass
         print("Lock file made (presumably)")
         log.info("STARTED")
-        self._comment_responder()
+
+        try:
+            self._comment_responder()
+        except PrawcoreException as e:
+            log.info(e)
+            log.info("Sleeping for 1 minute...")
+            time.sleep(60)
+        except KeyboardInterrupt:
+            raise
 
 
 if __name__ == '__main__':
