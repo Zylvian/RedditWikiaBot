@@ -11,7 +11,7 @@
   "sub_to_wiki":{
     "rickandmorty":"rickandmorty",
     "onepiece":["onepiece","memepiece"],
-    "gameofthrones": "gameofthrones",
+    "gameofthrones": ["gameofthrones","freefolk","gameofthronesmemes"],
     "epicrapbattlesofhistory":"erb"
   }
 }
