@@ -117,7 +117,10 @@ class Fetcher:
 
         fetch_json = requests.get(self._summarystartlink + str(page_id)).json()
 
-        return fetch_json["sections"][0]["content"][0]["text"]
+        try:
+            return fetch_json["sections"][0]["content"][0]["text"]
+        except: #If there is no summary.
+            return ""
 
     def __change_wiki(self, sub):
 
