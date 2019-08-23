@@ -110,6 +110,7 @@ class RedditBot:
             log.info(e)
             log.info("Sleeping for 1 minute...")
             time.sleep(60)
+            self._comment_responder()
         except KeyboardInterrupt:
             raise
 
