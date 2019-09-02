@@ -99,10 +99,14 @@ class RedditBot:
         #    if not answeredDB.exists(comment.parent_id, cards):
 
     def run(self):
-        # remove to kill
         with open(self.LOCK_FILE, 'w'): pass
         print("Lock file made (presumably)")
         log.info("STARTED")
+        # remove to kill
+
+        self.run_cont()
+
+    def run_cont(self):
 
         try:
             self._comment_responder()
@@ -110,10 +114,13 @@ class RedditBot:
             log.info(e)
             log.info("Sleeping for 1 minute...")
             time.sleep(60)
-            self._comment_responder()
+            self.run_cont()
         except KeyboardInterrupt:
             raise
-
+        except:
+            log.info("Something random happened, sleeping for 10 sec.")
+            time.sleep(60)
+            self.run_cont()
 
 if __name__ == '__main__':
     RedditBot().run()
