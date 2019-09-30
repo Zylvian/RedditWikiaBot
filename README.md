@@ -5,7 +5,7 @@
 ---
 
 ## How it works:
-Write `::something::` in a comment in a subreddit where this bot is active, and it will return a summary, an image and a link to the fetched wiki page for the dedicated sub.
+Write `::something::` in a comment in a subreddit where this bot is active, and it will return a summary, an image and a link to the dedicated **fandom.wiki** page for the sub.
 
 --- 
 
