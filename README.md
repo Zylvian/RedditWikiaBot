@@ -7,6 +7,8 @@
 ## How it works:
 Write `::something::` in a comment in a subreddit where this bot is active, and it will return a summary, an image and a link to the dedicated **fandom.wiki** page for the sub.
 
+[u/Wikia_Bot](https://www.reddit.com/user/Wikia_Bot)
+
 [Check this file to see where the bot is activated.](https://github.com/Zylvian/RedditWikiaBot/blob/master/data/constants.json)
 
 --- 
