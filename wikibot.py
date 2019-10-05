@@ -28,8 +28,11 @@ class RedditBot:
 
         # self._subs_to_check = "+".join(self.fetcher_dict.keys())
 
-        log.basicConfig(filename='bot_logging.log', level=log.INFO
-                        )
+        log.basicConfig(
+            filename='bot_logging.log',
+            format='%(asctime)s %(levelname)-8s %(message)s',
+            level=log.INFO,
+            datefmt='%Y-%m-%d %H:%M:%S')
 
     def create_response_string(self, info_dict):
 
