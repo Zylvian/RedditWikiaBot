@@ -60,7 +60,7 @@ class RedditBot:
             response_string = "##*Didn't find any results.*\n\n"
 
         #response_string += "---\n\n^(*For any feedback on this bot,*) [^(*send a DM to u/Zylvian.*)](https://www.reddit.com/message/compose?to=Zylvian&subject=Wikia Bot feedback&message=ay suck my dick)"
-        response_string += "---\n\n^[^(*Github.*)](https://github.com/Zylvian/RedditWikiaBot)"
+        response_string += "---\n\n^[^(*Github page.*)](https://github.com/Zylvian/RedditWikiaBot)"
 
         return response_string
 
