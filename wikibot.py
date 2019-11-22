@@ -61,7 +61,7 @@ class RedditBot:
 
         #response_string += "---\n\n^(*For any feedback on this bot,*) [^(*send a DM to u/Zylvian.*)](https://www.reddit.com/message/compose?to=Zylvian&subject=Wikia Bot feedback&message=ay suck my dick)"
         #response_string += "---\n\n^[^(*Github page.*)](https://github.com/Zylvian/RedditWikiaBot)"
-        response_string += "---\n\n^(^(I am a wiki bot. Call me by typing `::something::` in a comment! [^(*Github page.*)](https://github.com/Zylvian/RedditWikiaBot)))"
+        response_string += "---\n\n ^^I ^^am ^^a ^^wiki ^^bot. ^^Call ^^me ^^by ^^typing ^^`::something::` ^^in ^^a ^^comment!\n\n[^(*^Github ^page.*)](https://github.com/Zylvian/RedditWikiaBot)"
 
         return response_string
 
@@ -82,7 +82,7 @@ class RedditBot:
                 # Finds all text within brackets.
                 names = parser.parse_text(text)
 
-                if names:
+                if names and comment.author != "Wikia_Bot":
 
 
                     curr_sub = comment.subreddit.display_name
