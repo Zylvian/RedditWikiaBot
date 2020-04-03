@@ -20,5 +20,8 @@ If you want to request the bot for another subreddit, make an issue with the app
 For finding correct page and fetching summary: https://onepiece.fandom.com/api/v1
 For fetching images: https://onepiece.fandom.com/api.php
 
+## Requirements
+Praw (most **importantly**, a praw.ini file with the bot's login information. See praw bot tutorial for this)
+
 ### Other
 Please feel free to leave any and all comments as **issues** and don't be afraid of sending appropriate **pull requests**.
