@@ -6,6 +6,6 @@ sudo apt-get install git -y
 
 sudo pip install praw
 
-git clone https://github.com/Zylvian/One-Piece-Reddit-bot
+git clone https://github.com/Zylvian/RedditWikiaBot
 
 python onepiecewikibot.py >> crash_log.log &
