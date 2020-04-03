@@ -8,4 +8,4 @@ sudo pip install praw
 
 git clone https://github.com/Zylvian/RedditWikiaBot
 
-python onepiecewikibot.py >> crash_log.log &
+python wikibot.py >> crash_log.log &
