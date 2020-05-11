@@ -123,9 +123,11 @@ class RedditBot:
             self.run_cont()
         except KeyboardInterrupt:
             raise
-        except:
-            log.info("Something random happened, sleeping for 10 sec.")
-            time.sleep(60)
+        except Exception as e:
+            secs = 5
+            log.info("Something random happened, sleeping for {} sec.".format(secs))
+            log.info(e)
+            time.sleep(secs)
             self.run_cont()
 
 if __name__ == '__main__':

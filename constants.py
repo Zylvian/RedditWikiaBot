@@ -8,7 +8,7 @@ class Constants():
     CARD_LIMIT = 7
 
 
-    def __init__(self, constantJSON=pathlib.Path(__file__).parent.resolve() / '/data/constants.json'):
+    def __init__(self, constantJSON=pathlib.Path(__file__).parent.resolve() / 'data/constants.json'):
         with open(constantJSON, 'r', encoding='utf8') as file:
             constants = json.load(file)
 
