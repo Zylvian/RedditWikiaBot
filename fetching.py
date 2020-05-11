@@ -66,7 +66,6 @@ class Fetcher:
         clean_name = checked_name.replace(" ", "+")
 
         # Checks for any direct hits.
-        # difflib.get_close_matches[0]
         for nr, page in enumerate(all_pages.values()):
             title = page['title']
             title_clean = self.cleanName(title)
