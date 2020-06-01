@@ -14,11 +14,12 @@
 --- 
 
 ### Requesting new subreddit
-If you want to request the bot for another subreddit, make an issue with the appropriate **subreddit link** and **fandom.wiki link**.
+If you want to request the bot for another subreddit, [**submit an issue**](https://github.com/Zylvian/RedditWikiaBot/issues/new?assignees=&labels=&template=subreddit-request.md&title=).
 
 ### APIs:
-For finding correct page and fetching summary: https://onepiece.fandom.com/api/v1
-For fetching images: https://onepiece.fandom.com/api.php
+- For finding correct page and fetching summary: https://onepiece.fandom.com/api/v1
+
+- For fetching images: https://onepiece.fandom.com/api.php
 
 ## Requirements
 Praw (most **importantly**, a praw.ini file with the bot's login information). [Praw tutorial](https://praw.readthedocs.io/en/latest/getting_started/quick_start.html)
